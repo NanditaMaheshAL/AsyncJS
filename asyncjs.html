@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asynchronous JS</title>
+</head>
+<body>
+    <script>
+        //callback functions
+        const names = ['nandita','tyson','britney']
+        const myForEach = (names,cb) => {
+            for(let i=0;i<names.length;i++){
+                const ele = names[i]
+                cb(ele)
+            }
+        }
+        myForEach(names,(name)=>{
+            console.log(name)
+        })
+
+        const loadPokemon = (id,cb) =>{
+            fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+            .then(res=>res.json())
+            .then(data => {
+                cb(data)
+            })
+        }
+        loadPokemon(23,(pokemon)=>{
+            console.log(pokemon)
+        })
+
+        //async function, promises
+        const login = async (username,password) => {
+            if(!username || !password) throw 'Missing credentials'
+            if(password==='helloworld') return 'Welcome'
+            throw 'Invalid Password'
+        }
+        login('RandomUsername','helloworld')
+            .then(msg => {
+                console.log('Logged in')
+                console.log(msg)
+            })
+            .catch(err => {
+                console.log('Error')
+                console.log(err)
+            })
+    </script>
+</body>
+</html>
